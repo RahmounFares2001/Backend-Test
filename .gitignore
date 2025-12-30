@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+
+# Uploads (keep folder, ignore files)
+src/uploads/*
+!src/uploads/.gitkeep
+
+# Logs
+*.log
+
+# Editor / OS files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# TypeScript build info
+*.tsbuildinfo
