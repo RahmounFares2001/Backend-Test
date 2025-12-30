@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-// import bookingRoutes from './routes/bookingRoutes';
+import bookingRoutes from './routes/bookingRoutes.js';
 // import { errorHandler } from './middlewares/errorHandler';
 // import { rateLimiter } from './middlewares/rateLimiter';
 
@@ -13,7 +13,7 @@ app.use(express.json());
 // app.use(rateLimiter);
 
 // Routes
-// app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

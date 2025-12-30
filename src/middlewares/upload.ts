@@ -3,6 +3,13 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
 import { fileTypeFromBuffer } from 'file-type';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
@@ -49,11 +56,12 @@ const secureUpload = async (req: any, res: any, next: any) => {
     }
 
     // Save to disk 
-    const ext = path.extname(type.ext || '.bin');
+    // const ext = path.extname(type.ext || '.bin');
+    const ext = type.ext ? `.${type.ext}` : '';
     const filename = `${uuidv4()}${ext}`;
     const filepath = path.join(__dirname, '../../uploads', filename);
 
-    require('fs').writeFileSync(filepath, req.file.buffer);
+    fs.writeFileSync(filepath, req.file.buffer);
 
     // Attach path to request
     req.filePath = `/uploads/${filename}`;
