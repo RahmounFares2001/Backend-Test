@@ -1,4 +1,3 @@
-// src/server.ts
 import app from './app.js';
 import prisma from './config/prisma.js';
 
