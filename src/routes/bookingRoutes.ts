@@ -8,9 +8,9 @@ import {
 } from '../controllers/bookingController.js';
 import secureUpload from '../middlewares/upload.js';
 
-// import { rateLimiter } from '../middlewares/rateLimiter';
-// import { validate } from '../middlewares/validate';
-// import { createBookingSchema, updateBookingSchema } from '../schemas/bookingSchema';
+import { rateLimiter } from '../middlewares/rateLimiter.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { createBookingSchema, updateBookingSchema } from '../schemas/bookingSchema.js';
 
 const router = Router();
 
@@ -24,18 +24,18 @@ router.get('/:id', getBookingById);
 // CREATE booking, rate limited, upload, validation
 router.post(
   '/',
-//   rateLimiter,           
+  rateLimiter,           
   secureUpload,          
-//   validate(createBookingSchema),
+  validateBody(createBookingSchema),
   createBooking
 );
 
 // UPDATE booking - rate limited + optional upload + validation
 router.put(
   '/:id',
-//   rateLimiter,
+  rateLimiter,
   secureUpload,         
-//   validate(updateBookingSchema),
+  validateBody(updateBookingSchema),
   updateBooking
 );
 
