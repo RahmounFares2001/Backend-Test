@@ -15,8 +15,8 @@ jobs:
         image: postgres:16-alpine
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: bookingsDB
         ports:
           - 5432:5432
         options: >-
@@ -41,15 +41,18 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
         env:
-          DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bookingsDB
 
       - name: Run Prisma migration
         run: npx prisma migrate deploy
         env:
-          DATABASE_URL: postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bookingsDB
 
       - name: Build project
         run: npm run build
 
-      - name: Run tests
-        run: echo "No tests yet - build successful"
+      - name: Run tests (if you have)
+        run: npm test
+
+      - name: Lint (optional)
+        run: npx eslint . || true
