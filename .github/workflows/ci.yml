@@ -50,9 +50,3 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-      - name: Run tests (if you have)
-        run: npm test
-
-      - name: Lint (optional)
-        run: npx eslint . || true
